@@ -97,10 +97,6 @@ button {
   margin-left: 10px;
 }
 
-button:hover {
-  background-color: #005a9e;
-}
-
 .logo-container {
   width: 100%;
   display: flex;
@@ -122,6 +118,7 @@ button:hover {
 
 .copilot-description {
   font-size: 14px;
+  color: #5b6064;
 }
 
 .btn-container {
@@ -133,12 +130,16 @@ button:hover {
   width: 90%;
   display: flex;
   justify-content: space-between;
+  padding: 5px;
+  border: 1px solid  #425195;
+  border-radius: 6px;
 }
 
 .option-button {
   flex: 1; /* Distribute width equally among all buttons */
-  background-color: #0078d4;
-  color: #fff;
+  background-color: #fff;
+  font-weight: bold;
+  color: #000;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -150,7 +151,8 @@ button:hover {
 }
 
 .option-button.selected {
-  background-color: #005a9e; /* Change the color for selected buttons */
+  color: #fff;
+  background-color: #39228C; /* Change the color for selected buttons */
 }
 
 

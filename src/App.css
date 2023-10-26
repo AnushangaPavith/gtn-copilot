@@ -1,0 +1,177 @@
+.App{
+  height: 100%;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.homepage {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chat {
+  padding: 10px;
+}
+
+.message {
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 8px;
+  word-wrap: break-word;
+}
+
+.user {
+  background-color: #0078d4;
+  color: #fff;
+  align-self: flex-end;
+}
+
+.bot {
+  background-color: #f0f0f0;
+  color: #000;
+  align-self: flex-start;
+}
+
+.input-container {
+  border: 1px solid #ccc;
+  margin-top: auto;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+}
+
+input[type="text"] {
+  width: auto;
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #0078d4;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button:hover {
+  background-color: #005a9e;
+}
+
+.logo-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copilot-logo {
+  margin-top: 4%;
+  width: 16%;
+  height: auto;
+}
+
+.logo-text-container {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.copilot-description {
+  font-size: 14px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+}
+
+.option-buttons {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.option-button {
+  flex: 1; /* Distribute width equally among all buttons */
+  background-color: #0078d4;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-right: 10px;
+  outline: none;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.option-button.selected {
+  background-color: #005a9e; /* Change the color for selected buttons */
+}
+
+
+.btn-voice,.btn-send {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 25px;
+  color: #5b6064;
+}
+
+.btn-voice:hover, .btn-send:hover {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000000;
+}

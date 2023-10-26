@@ -47,8 +47,8 @@ body {
   flex-direction: column;
   width: 450px;
   margin: 0 auto;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background: linear-gradient(135deg, #fff, #CAEFF0);
+  border: 1px solid #39228C;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -70,11 +70,12 @@ body {
 }
 
 .input-container {
-  border: 1px solid #ccc;
+  border: 1px solid #39218C;
   margin-top: auto;
   display: flex;
-  padding: 10px;
+  padding: 5px;
   align-items: center;
+  border-radius: 8px;
 }
 
 input[type="text"] {
@@ -105,7 +106,7 @@ button {
 }
 
 .copilot-logo {
-  margin-top: 4%;
+  margin-top: 3%;
   width: 16%;
   height: auto;
 }
@@ -119,6 +120,9 @@ button {
 .copilot-description {
   font-size: 14px;
   color: #5b6064;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 0;
 }
 
 .btn-container {
@@ -133,6 +137,7 @@ button {
   padding: 5px;
   border: 1px solid  #425195;
   border-radius: 6px;
+  background-color: #fff;
 }
 
 .option-button {
@@ -143,7 +148,6 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  padding: 5px 10px;
   margin-right: 10px;
   outline: none;
   padding-top: 3%;
@@ -152,7 +156,7 @@ button {
 
 .option-button.selected {
   color: #fff;
-  background-color: #39228C; /* Change the color for selected buttons */
+  background: linear-gradient(135deg, #52ABA5, #39218C);
 }
 
 
@@ -160,8 +164,8 @@ button {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 25px;
-  color: #5b6064;
+  font-size: 22px;
+  color: #39218C;
 }
 
 .btn-voice:hover, .btn-send:hover {
@@ -175,21 +179,37 @@ button {
 .message {
   margin: 5px 0;
   padding: 8px;
-  border-radius: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px;
   word-wrap: break-word;
-  width: auto; /* Set the width to auto */
+  width: auto !important;
 }
 
 /* User message styles */
 .message.user {
-  background-color: #0f353f;
-  align-self: flex-end;
+  background-color: #39228C;
+  align-self: flex-end !important;
   margin-left: auto;
+  width: max-content !important;
+  border-bottom-right-radius: 2px;
 }
 
 /* Bot message styles */
 .message.bot {
   background-color: #f0f0f0;
-  align-self: flex-start;
+  align-self: flex-start !important;
   margin-right: auto;
+  width: max-content !important;
+  border-bottom-left-radius: 2px;
+}
+
+h2 {
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+#input-field::placeholder {
+  font-style: italic;
 }

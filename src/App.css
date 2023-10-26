@@ -41,7 +41,7 @@ body {
   flex-direction: column;
 }
 
-.chat-container {
+.gtn-copilot {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -55,13 +55,6 @@ body {
 
 .chat {
   padding: 10px;
-}
-
-.message {
-  margin: 5px 0;
-  padding: 8px;
-  border-radius: 8px;
-  word-wrap: break-word;
 }
 
 .user {
@@ -174,4 +167,27 @@ button:hover {
   border: none;
   cursor: pointer;
   color: #000000;
+}
+
+/* Common message styles */
+.message {
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 8px;
+  word-wrap: break-word;
+  width: auto; /* Set the width to auto */
+}
+
+/* User message styles */
+.message.user {
+  background-color: #0f353f;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+/* Bot message styles */
+.message.bot {
+  background-color: #f0f0f0;
+  align-self: flex-start;
+  margin-right: auto;
 }

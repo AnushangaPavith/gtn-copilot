@@ -10,7 +10,7 @@ function Copilot() {
     const [messages, setMessages] = useState([]); // State to store messages
     const [inputField, setInputField] = useState('');
     const [selectedOption, setSelectedOption] = useState('dynamic');
-    const recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
     useEffect(() => {
         if (recognition) {
@@ -19,6 +19,7 @@ function Copilot() {
 
             recognition.onresult = (event) => {
                 const result = event.results[event.results.length - 1][0].transcript;
+                console.log(result);
                 setInputField(result);
             };
 
@@ -52,7 +53,6 @@ function Copilot() {
 
     const handleVoiceButton = () => {
         if (window.SpeechRecognition || window.webkitSpeechRecognition) {
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.start();
         } else {
             console.error('Speech recognition is not available in this browser.');
@@ -68,29 +68,31 @@ function Copilot() {
     };
 
     return (
-        <div className="chat-container">
-            <div className='logo-container'>
-                <img className='copilot-logo' src={gtn_copilot} alt="Logo" />
-            </div>
-            <div className='logo-text-container'>
-                <h2>GTN Copilot</h2>
-                <p className='copilot-description'>Here are some things Copilot can help you do.</p>
-            </div>
+        <div className='gtn-copilot'>
+            <div className="chat-container">
+                <div className='logo-container'>
+                    <img className='copilot-logo' src={gtn_copilot} alt="Logo" />
+                </div>
+                <div className='logo-text-container'>
+                    <h2>GTN Copilot</h2>
+                    <p className='copilot-description'>Here are some things Copilot can help you do.</p>
+                </div>
 
-            <div className='btn-container'>
-                <div className="option-buttons">
-                    <button className={`option-button ${isOptionSelected('dynamic')}`} onClick={() => handleOptionChange('dynamic')} >
-                        Dynamic<br />Data Retrieval
-                    </button>
-                    <button className={`option-button ${isOptionSelected('admin')}`} onClick={() => handleOptionChange('admin')} >
-                        Admin<br />Assistance
-                    </button>
-                    <button className={`option-button ${isOptionSelected('task')}`} onClick={() => handleOptionChange('task')} >
-                        Task<br />Automation
-                    </button>
+                <div className='btn-container'>
+                    <div className="option-buttons">
+                        <button className={`option-button ${isOptionSelected('dynamic')}`} onClick={() => handleOptionChange('dynamic')} >
+                            Dynamic<br />Data Retrieval
+                        </button>
+                        <button className={`option-button ${isOptionSelected('admin')}`} onClick={() => handleOptionChange('admin')} >
+                            Admin<br />Assistance
+                        </button>
+                        <button className={`option-button ${isOptionSelected('task')}`} onClick={() => handleOptionChange('task')} >
+                            Task<br />Automation
+                        </button>
+                    </div>
                 </div>
             </div>
-
+            
             <div className="chat" id='chat'>
                 {messages.map((message, index) => (
                     <Message key={index} message={message.message} sender={message.sender} />

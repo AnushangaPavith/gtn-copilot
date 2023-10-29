@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = "http://localhost:5000/random_response";
+const API_BASE_URL = "http://172.104.60.233:5000/random_response";
 
 class Service {
     getResponse(message) {

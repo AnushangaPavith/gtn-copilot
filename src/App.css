@@ -22,15 +22,6 @@ body {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .homepage {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
@@ -42,19 +33,22 @@ body {
 }
 
 .gtn-copilot {
-  flex: 1;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   width: 450px;
   margin: 0 auto;
-  background: linear-gradient(135deg, #fff, #CAEFF0);
+  background: linear-gradient(135deg, #fff, #D2E8F8);
   border: 1px solid #39228C;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .chat {
+  margin-top: 4px;
   padding: 10px;
+  overflow-y: scroll;
+  max-height: 60vh;
 }
 
 .user {
@@ -156,7 +150,7 @@ button {
 
 .option-button.selected {
   color: #fff;
-  background: linear-gradient(135deg, #52ABA5, #39218C);
+  background: linear-gradient(135deg, #38BABE, #4F4D9E);
 }
 
 
@@ -165,7 +159,7 @@ button {
   border: none;
   cursor: pointer;
   font-size: 22px;
-  color: #39218C;
+  color: #4F4D9E;
 }
 
 .btn-voice:hover, .btn-send:hover {
@@ -179,19 +173,19 @@ button {
 .message {
   margin: 5px 0;
   padding: 8px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   border-radius: 10px;
   word-wrap: break-word;
   width: auto !important;
+  white-space: normal;
 }
 
 /* User message styles */
 .message.user {
-  background-color: #39228C;
+  background-color: #4F4D9E;
   align-self: flex-end !important;
   margin-left: auto;
-  width: max-content !important;
   border-bottom-right-radius: 2px;
 }
 
@@ -200,8 +194,27 @@ button {
   background-color: #f0f0f0;
   align-self: flex-start !important;
   margin-right: auto;
-  width: max-content !important;
   border-bottom-left-radius: 2px;
+  overflow-y: auto;
+}
+
+/* Max-content message style */
+.message-max-content {
+  width: max-content !important;
+  white-space: nowrap !important;
+}
+
+/* Auto message style */
+.message-auto {
+  width: auto !important;
+  word-wrap: break-word !important;
+}
+
+.message.bot-scroll {
+  width: auto !important;
+  white-space: nowrap !important;
+  overflow-x: auto !important;
+  max-width: 100% !important;
 }
 
 h2 {
@@ -213,3 +226,46 @@ h2 {
 #input-field::placeholder {
   font-style: italic;
 }
+
+/* Track (the area of the scrollbar) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Thumb (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #b5c6d1; /* Color of the thumb */
+  border-radius: 8px;
+}
+
+/* Hovered Thumb */
+::-webkit-scrollbar-thumb:hover {
+  background: #a6b3bc; /* Color when hovered */
+}
+
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.custom-table th, .custom-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #f2f2f2;
+}
+
+/* .custom-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.custom-table tr:nth-child(odd) {
+  background-color: #ffffff;
+} */

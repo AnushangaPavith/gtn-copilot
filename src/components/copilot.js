@@ -3,7 +3,7 @@ import Message from './Message';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import gtn_copilot from "../img/B1.png";
-
+import services from '../services/services';
 
 
 function Copilot() {
@@ -29,22 +29,56 @@ function Copilot() {
         }
     }, [recognition]);
 
-    const updateChat = (message, sender) => {
-        setMessages(prevMessages => [...prevMessages, { message, sender }]);
+    const updateChat = (message, sender, isArray) => {
+        setMessages(prevMessages => [...prevMessages, { message, sender, isArray }]);
     };
 
-    const handleSendButton = () => {
+    const handleSendButton = async () => {
         if (inputField.trim() !== '') {
             const userMessage = inputField;
 
             // Append the user's message to the chat
-            updateChat(userMessage, 'user');
+            updateChat(userMessage, 'user', false);
 
-            // Simulate a bot response after a delay
-            setTimeout(() => {
-                const botResponse = "Hello, how can I assist you?"; // Replace this with the actual server response
-                updateChat(botResponse, 'bot');
-            }, 1000);
+            try {
+                // Send the user message to the server and get the bot's response
+                const response = await services.getResponse({ message: userMessage });
+                const { type, content } = response.data;
+
+    
+                if (type === "text") {
+                    // Display the content as text
+                    updateChat(content, 'bot', false);
+                } else if (type === "array") {
+                    // Display the content as a table
+                    // Assuming content is an array of objects
+                    const tableContent = (
+                        <table className="custom-table">
+                            <thead>
+                                <tr>
+                                    {Object.keys(content[0]).map((key) => (
+                                        <th key={key}>{key}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {content.map((item, index) => (
+                                    <tr key={index}>
+                                        {Object.values(item).map((value, subIndex) => (
+                                            <td key={subIndex}>{value}</td>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    );
+    
+                    updateChat(tableContent, 'bot', true);
+                }
+            } catch (error) {
+                // Handle any errors here
+                console.error('Error while getting the bot response:', error);
+            }
 
             setInputField(''); // Clear the input field
             console.log(messages);
@@ -95,7 +129,7 @@ function Copilot() {
             
             <div className="chat" id='chat'>
                 {messages.map((message, index) => (
-                    <Message key={index} message={message.message} sender={message.sender} />
+                    <Message key={index} message={message.message} sender={message.sender} isArray={message.isArray} />
                 ))}
             </div>
 

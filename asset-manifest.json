@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/AnushangaPavith/gtn-copilot/static/css/main.f5c54b06.css",
+    "main.js": "/AnushangaPavith/gtn-copilot/static/js/main.d30829fa.js",
+    "static/js/787.b0df3b05.chunk.js": "/AnushangaPavith/gtn-copilot/static/js/787.b0df3b05.chunk.js",
+    "static/media/B1.png": "/AnushangaPavith/gtn-copilot/static/media/B1.d163010ce24946a6f00d.png",
+    "index.html": "/AnushangaPavith/gtn-copilot/index.html",
+    "main.f5c54b06.css.map": "/AnushangaPavith/gtn-copilot/static/css/main.f5c54b06.css.map",
+    "main.d30829fa.js.map": "/AnushangaPavith/gtn-copilot/static/js/main.d30829fa.js.map",
+    "787.b0df3b05.chunk.js.map": "/AnushangaPavith/gtn-copilot/static/js/787.b0df3b05.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f5c54b06.css",
+    "static/js/main.d30829fa.js"
+  ]
+}

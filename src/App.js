@@ -8,7 +8,7 @@ function App() {
       <Router>
         <Routes>
           <Route>
-            <Route path="/" exact element={<HomePage></HomePage>}></Route>
+            <Route path="/gtn-copilot" exact element={<HomePage></HomePage>}></Route>
           </Route>
         </Routes>
       </Router>

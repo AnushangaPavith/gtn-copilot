@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/gtn-copilot/static/css/main.f5c54b06.css",
-    "main.js": "/gtn-copilot/static/js/main.8c3b3136.js",
+    "main.js": "/gtn-copilot/static/js/main.374f01cd.js",
     "static/js/787.b0df3b05.chunk.js": "/gtn-copilot/static/js/787.b0df3b05.chunk.js",
     "static/media/B1.png": "/gtn-copilot/static/media/B1.d163010ce24946a6f00d.png",
     "index.html": "/gtn-copilot/index.html",
     "main.f5c54b06.css.map": "/gtn-copilot/static/css/main.f5c54b06.css.map",
-    "main.8c3b3136.js.map": "/gtn-copilot/static/js/main.8c3b3136.js.map",
+    "main.374f01cd.js.map": "/gtn-copilot/static/js/main.374f01cd.js.map",
     "787.b0df3b05.chunk.js.map": "/gtn-copilot/static/js/787.b0df3b05.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f5c54b06.css",
-    "static/js/main.8c3b3136.js"
+    "static/js/main.374f01cd.js"
   ]
 }

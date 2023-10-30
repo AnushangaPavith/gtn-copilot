@@ -76,7 +76,7 @@ function Copilot() {
             try {
                 setInputField(''); // Clear the input field
                 // Send the user message to the server and get the bot's response
-                const response = await services.getResponse({ user_request: userMessage});
+                const response = await services.getResponse({ user_request: userMessage}, selectedOption);
                 const response_obj = JSON.parse(response.data.output.output);
                 
 

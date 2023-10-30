@@ -11,6 +11,7 @@ function Copilot() {
     const [inputField, setInputField] = useState('');
     const [selectedOption, setSelectedOption] = useState('dynamic');
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    const [listening, setListening] = useState(false);
 
     useEffect(() => {
         if (recognition) {
@@ -36,6 +37,11 @@ function Copilot() {
     const handleSendButton = async () => {
         if (inputField.trim() !== '') {
             const userMessage = inputField;
+
+            if (recognition && listening) {
+                recognition.stop(); // Stop speech recognition if it's active
+                setListening(false); // Update the listening state
+            }
 
             // Append the user's message to the chat
             updateChat(userMessage, 'user', false);
@@ -87,7 +93,12 @@ function Copilot() {
 
     const handleVoiceButton = () => {
         if (window.SpeechRecognition || window.webkitSpeechRecognition) {
-            recognition.start();
+            if (!listening) {
+                recognition.start();
+            } else {
+                recognition.stop();
+            }
+            setListening(!listening);
         } else {
             console.error('Speech recognition is not available in this browser.');
         }
@@ -134,7 +145,7 @@ function Copilot() {
             </div>
 
             <div className="input-container">
-                <button className='btn-voice' id="voice-button" onClick={handleVoiceButton}><FontAwesomeIcon icon={faMicrophone} /></button>
+                <button className={`btn-voice ${listening ? 'listening' : ''}`} id="voice-button" onClick={handleVoiceButton}><FontAwesomeIcon icon={faMicrophone} /></button>
                 <input type="text" id="input-field" value={inputField} onChange={(e) => setInputField(e.target.value)} placeholder="Ask me anything related to GTN..." />
                 <button className='btn-send' id="send-button" onClick={handleSendButton}><FontAwesomeIcon icon={faPaperPlane} /></button>
             </div>

@@ -169,6 +169,22 @@ button {
   color: #000000;
 }
 
+@keyframes colorChange {
+  0% {
+    color: #38BABE; /* Initial color */
+  }
+  50% {
+    color: #4F4D9E; /* Midpoint color */
+  }
+  100% {
+    color: #38BABE; /* Back to the initial color */
+  }
+}
+
+.btn-voice.listening {
+  animation: colorChange 1s linear infinite; /* Adjust the duration as needed */
+}
+
 /* Common message styles */
 .message {
   margin: 5px 0;

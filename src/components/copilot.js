@@ -126,7 +126,7 @@ function Copilot() {
                     return updatedMessages;
                 });
                 clearInterval(loadingTextInterval);
-                updateChat("Error while getting response", 'bot', false);
+                updateChat("Try again...", 'bot', false);
             }
 
             setInputField(''); // Clear the input field

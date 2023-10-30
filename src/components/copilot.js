@@ -76,8 +76,9 @@ function Copilot() {
             try {
                 setInputField(''); // Clear the input field
                 // Send the user message to the server and get the bot's response
-                const response = await services.getResponse({ message: userMessage });
-                const { type, content } = response.data;
+                const response = await services.getResponse({ user_request: userMessage});
+                const response_obj = JSON.parse(response.data.output.output);
+                
 
                 setMessages(prevMessages => {
                     const updatedMessages = [...prevMessages];
@@ -86,23 +87,23 @@ function Copilot() {
                 });
                 clearInterval(loadingTextInterval);
 
-                if (type === "text") {
+                if (response_obj.type === "text") {
                     // Display the content as text
-                    updateChat(content, 'bot', false);
-                } else if (type === "array") {
+                    updateChat(response_obj.content, 'bot', false);
+                } else if (response_obj.type === "array") {
                     // Display the content as a table
                     // Assuming content is an array of objects
                     const tableContent = (
                         <table className="custom-table">
                             <thead>
                                 <tr>
-                                    {Object.keys(content[0]).map((key) => (
+                                    {Object.keys(response_obj.content[0]).map((key) => (
                                         <th key={key}>{key}</th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody>
-                                {content.map((item, index) => (
+                                {response_obj.content.map((item, index) => (
                                     <tr key={index}>
                                         {Object.values(item).map((value, subIndex) => (
                                             <td key={subIndex}>{value}</td>

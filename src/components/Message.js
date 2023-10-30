@@ -3,7 +3,7 @@ import React from 'react';
 function Message(props) {
     const { message, sender, isArray } = props;
 
-    const messageClass = message.length > 40 ? 'message-auto' : 'message-max-content';
+    const messageClass = message.length > 68 ? 'message-auto' : 'message-max-content';
     const scrollEnable = isArray ? 'bot-scroll' : '';
 
     return (

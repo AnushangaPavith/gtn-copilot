@@ -33,7 +33,7 @@ function Copilot() {
     const updateChat = (message, sender, isArray) => {
         setMessages(prevMessages => [...prevMessages, { message, sender, isArray }]);
     };
-
+    
     const handleSendButton = async () => {
         if (inputField.trim() !== '') {
             const userMessage = inputField;
@@ -46,29 +46,63 @@ function Copilot() {
             // Append the user's message to the chat
             updateChat(userMessage, 'user', false);
 
-            try {
-                // Send the user message to the server and get the bot's response
-                const response = await services.getResponse({ user_request: userMessage});
-                const response_obj = JSON.parse(response.data.output.output);
-                
+            // Show a temporary loading message
+            const loadingMessage = (
+                <div className="loading-animation">
+                    <div className="spinner"></div>
+                    <div className='spinner-txt' id="loading-text">Sending message...</div>
+                </div>
+            );
     
-                if (response_obj.type === "text") {
+            const loadingMessageIndex = updateChat(loadingMessage, 'bot', false);
+
+            // Function to update loading text in a loop
+            const loadingTexts = ["Sending message...", "Retrieving data...", "Formatting message..."];
+            let textIndex = 1;
+            const updateLoadingText = () => {
+                const loadingTextElement = document.getElementById("loading-text");
+                loadingTextElement.textContent = loadingTexts[textIndex];
+                textIndex = (textIndex + 1) % loadingTexts.length;
+    
+                if (textIndex === loadingTexts.length || textIndex === 0) {
+                    // If "Formatting message..." is reached, stop the interval
+                    clearInterval(loadingTextInterval);
+                }
+            };
+
+            // Set an interval to update the loading text
+            const loadingTextInterval = setInterval(updateLoadingText, 4000);
+
+            try {
+                setInputField(''); // Clear the input field
+                // Send the user message to the server and get the bot's response
+                const response = await services.getResponse({ message: userMessage });
+                const { type, content } = response.data;
+
+                setMessages(prevMessages => {
+                    const updatedMessages = [...prevMessages];
+                    updatedMessages.pop();
+                    return updatedMessages;
+                });
+                clearInterval(loadingTextInterval);
+
+                if (type === "text") {
                     // Display the content as text
-                    updateChat(response_obj.content, 'bot', false);
-                } else if (response_obj.type === "array") {
+                    updateChat(content, 'bot', false);
+                } else if (type === "array") {
                     // Display the content as a table
                     // Assuming content is an array of objects
                     const tableContent = (
                         <table className="custom-table">
                             <thead>
                                 <tr>
-                                    {Object.keys(response_obj.content[0]).map((key) => (
+                                    {Object.keys(content[0]).map((key) => (
                                         <th key={key}>{key}</th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody>
-                                {response_obj.content.map((item, index) => (
+                                {content.map((item, index) => (
                                     <tr key={index}>
                                         {Object.values(item).map((value, subIndex) => (
                                             <td key={subIndex}>{value}</td>
@@ -84,6 +118,14 @@ function Copilot() {
             } catch (error) {
                 // Handle any errors here
                 console.error('Error while getting the bot response:', error);
+                
+                setMessages(prevMessages => {
+                    const updatedMessages = [...prevMessages];
+                    updatedMessages.pop();
+                    return updatedMessages;
+                });
+                clearInterval(loadingTextInterval);
+                updateChat("Error while getting response", 'bot', false);
             }
 
             setInputField(''); // Clear the input field

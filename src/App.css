@@ -48,7 +48,7 @@ body {
   margin-top: 4px;
   padding: 10px;
   overflow-y: scroll;
-  max-height: 60vh;
+  max-height: 70vh;
 }
 
 .user {
@@ -285,3 +285,29 @@ h2 {
 .custom-table tr:nth-child(odd) {
   background-color: #ffffff;
 } */
+
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #4F4D9E;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: spin 1.5s linear infinite;
+}
+
+.spinner-txt {
+  padding-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

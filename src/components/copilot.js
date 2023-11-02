@@ -71,7 +71,7 @@ function Copilot() {
             };
 
             // Set an interval to update the loading text
-            const loadingTextInterval = setInterval(updateLoadingText, 4000);
+            const loadingTextInterval = setInterval(updateLoadingText, 5000);
 
             try {
                 setInputField(''); // Clear the input field
@@ -103,14 +103,32 @@ function Copilot() {
                                 <tbody>
                                     {response_obj.content.map((item, index) => (
                                         <tr key={index}>
-                                            {Object.values(item).map((value, subIndex) => (
-                                                <td key={subIndex}>{value}</td>
-                                            ))}
+                                            {Object.values(item).map((value, subIndex) => {
+                                                if (typeof value === "object" && !Array.isArray(value)) {
+                                                    // Handle nested objects here
+                                                    return (
+                                                        <td key={subIndex}>
+                                                            <table>
+                                                                <tbody>
+                                                                    {Object.keys(value).map((subKey, subSubIndex) => (
+                                                                        <tr key={subSubIndex}>
+                                                                            <td>{subKey}</td>
+                                                                            <td>{value[subKey]}</td>
+                                                                        </tr>
+                                                                    ))}
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    );
+                                                } else {
+                                                    return <td key={subIndex}>{value}</td>;
+                                                }
+                                            })}
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        );
+                        );                        
                         setMessages(prevMessages => {
                             const updatedMessages = [...prevMessages];
                             updatedMessages.pop();

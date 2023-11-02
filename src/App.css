@@ -311,3 +311,40 @@ h2 {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.switch {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.toggle-switch {
+  width: 30px;
+  height: 15px;
+  background-color: #ccc;
+  border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-knob {
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  transition: transform 0.2s;
+}
+
+.toggle-switch.on {
+  background-color: #4F4D9E; /* Background color when the switch is "on" */
+}
+
+.toggle-knob.on {
+  transform: translateX(15px); /* Position the knob when the switch is "on" */
+}
+

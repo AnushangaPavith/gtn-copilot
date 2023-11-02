@@ -138,14 +138,15 @@ button {
   flex: 1; /* Distribute width equally among all buttons */
   background-color: #fff;
   font-weight: bold;
+  font-size: 16px;
   color: #000;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   margin-right: 10px;
   outline: none;
-  padding-top: 3%;
-  padding-bottom: 3%;
+  padding-top: 2%;
+  padding-bottom: 2%;
 }
 
 .option-button.selected {
@@ -239,6 +240,10 @@ h2 {
   padding: 0;
 }
 
+sup {
+  font-size: 16px;
+}
+
 #input-field::placeholder {
   font-style: italic;
 }
@@ -314,8 +319,7 @@ h2 {
 
 .switch {
   position: fixed;
-  bottom: 10px;
-  left: 10px;
+  top: 10px;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;

@@ -5,10 +5,11 @@ import { faMicrophone, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import gtn_copilot from "../img/B1.png";
 import services from '../services/services';
 
+
 function RubixCopilot() {
     const [messages, setMessages] = useState([]); // State to store messages
     const [inputField, setInputField] = useState('');
-    const [selectedOption, setSelectedOption] = useState('dynamic');
+    const [selectedOption, setSelectedOption] = useState('task');
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     const [listening, setListening] = useState(false);
 
@@ -75,56 +76,60 @@ function RubixCopilot() {
             try {
                 setInputField(''); // Clear the input field
                 // Send the user message to the server and get the bot's response
-                const response = await services.getResponse({ user_request: userMessage }, selectedOption);
-                const response_obj = JSON.parse(response.data.output.output);
-    
-                setMessages((prevMessages) => {
-                    const updatedMessages = [...prevMessages];
-                    updatedMessages.pop();
-                    return updatedMessages;
-                });
-                clearInterval(loadingTextInterval);
-    
-                if (response_obj.type === "text") {
-                    // Display the content as text
-                    updateChat(response_obj.content, 'bot', false);
-                } else if (response_obj.type === "array") {
-                    // Check if content is an array of objects
-                    if (Array.isArray(response_obj.content) && response_obj.content.length > 0) {
-                        // Check if the first item in the array is an object
-                        if (typeof response_obj.content[0] === 'object') {
-                            // Display the content as a table
-                            const tableContent = (
-                                <table className="custom-table">
-                                    <thead>
-                                        <tr>
-                                            {Object.keys(response_obj.content[0]).map((key) => (
-                                                <th key={key}>{key}</th>
+
+                if (selectedOption=== "dynamic"){
+                    const response = await services.getResponse({ user_request: userMessage}, selectedOption);
+                    const response_obj = JSON.parse(response.data.output.output);
+                    if (response_obj.type === "text") {
+                        // Display the content as text
+                        setMessages(prevMessages => {
+                            const updatedMessages = [...prevMessages];
+                            updatedMessages.pop();
+                            return updatedMessages;
+                        });
+                        updateChat(response_obj.content, 'bot', false);
+                    } else if (response_obj.type === "array") {
+                        // Display the content as a table
+                        // Assuming content is an array of objects
+                        const tableContent = (
+                            <table className="custom-table">
+                                <thead>
+                                    <tr>
+                                        {Object.keys(response_obj.content[0]).map((key) => (
+                                            <th key={key}>{key}</th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {response_obj.content.map((item, index) => (
+                                        <tr key={index}>
+                                            {Object.values(item).map((value, subIndex) => (
+                                                <td key={subIndex}>{value}</td>
                                             ))}
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {response_obj.content.map((item, index) => (
-                                            <tr key={index}>
-                                                {Object.values(item).map((value, subIndex) => (
-                                                    <td key={subIndex}>{value}</td>
-                                                ))}
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            );
-    
-                            updateChat(tableContent, 'bot', true);
-                        } else {
-                            // Display the content as text
-                            updateChat(response_obj.content, 'bot', false);
-                        }
-                    } else {
-                        // Display the content as text
-                        updateChat(response_obj.content, 'bot', false);
+                                    ))}
+                                </tbody>
+                            </table>
+                        );
+                        setMessages(prevMessages => {
+                            const updatedMessages = [...prevMessages];
+                            updatedMessages.pop();
+                            return updatedMessages;
+                        });
+                        updateChat(tableContent, 'bot', true);
                     }
+                } else {
+                    const response = await services.getResponse( userMessage, selectedOption);
+                    setMessages(prevMessages => {
+                        const updatedMessages = [...prevMessages];
+                        updatedMessages.pop();
+                        return updatedMessages;
+                    });
+                    updateChat(response.data.output.content, 'bot', false);
                 }
+
+                clearInterval(loadingTextInterval);
+               
             } catch (error) {
                 // Handle any errors here
                 console.error('Error while getting the bot response:', error);
@@ -171,7 +176,7 @@ function RubixCopilot() {
                     <img className='copilot-logo' src={gtn_copilot} alt="Logo" />
                 </div>
                 <div className='logo-text-container'>
-                    <h2>GTN Copilot for Rubix</h2>
+                    <h2>GTN Copilot <sup>Rubix</sup></h2>
                     <p className='copilot-description'>Here are some things Copilot can help you do.</p>
                 </div>
 
@@ -181,7 +186,7 @@ function RubixCopilot() {
                             Dynamic<br />Data Retrieval
                         </button>
                         <button className={`option-button ${isOptionSelected('admin')}`} onClick={() => handleOptionChange('admin')} >
-                            Admin<br />Assistance
+                            User<br />Assistance
                         </button>
                         <button className={`option-button ${isOptionSelected('task')}`} onClick={() => handleOptionChange('task')} >
                             Task<br />Automation

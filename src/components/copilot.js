@@ -76,7 +76,6 @@ function Copilot() {
             try {
                 setInputField(''); // Clear the input field
                 // Send the user message to the server and get the bot's response
-<<<<<<< HEAD
 
                 if (selectedOption=== "dynamic"){
                     const response = await services.getResponse({ user_request: userMessage}, selectedOption);
@@ -127,57 +126,6 @@ function Copilot() {
                         return updatedMessages;
                     });
                     updateChat(response.data.output.content, 'bot', false);
-=======
-                const response = await services.getResponse({ user_request: userMessage }, selectedOption);
-                const response_obj = JSON.parse(response.data.output.output);
-    
-                setMessages((prevMessages) => {
-                    const updatedMessages = [...prevMessages];
-                    updatedMessages.pop();
-                    return updatedMessages;
-                });
-                clearInterval(loadingTextInterval);
-    
-                if (response_obj.type === "text") {
-                    // Display the content as text
-                    updateChat(response_obj.content, 'bot', false);
-                } else if (response_obj.type === "array") {
-                    // Check if content is an array of objects
-                    if (Array.isArray(response_obj.content) && response_obj.content.length > 0) {
-                        // Check if the first item in the array is an object
-                        if (typeof response_obj.content[0] === 'object') {
-                            // Display the content as a table
-                            const tableContent = (
-                                <table className="custom-table">
-                                    <thead>
-                                        <tr>
-                                            {Object.keys(response_obj.content[0]).map((key) => (
-                                                <th key={key}>{key}</th>
-                                            ))}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {response_obj.content.map((item, index) => (
-                                            <tr key={index}>
-                                                {Object.values(item).map((value, subIndex) => (
-                                                    <td key={subIndex}>{value}</td>
-                                                ))}
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            );
-    
-                            updateChat(tableContent, 'bot', true);
-                        } else {
-                            // Display the content as text
-                            updateChat(response_obj.content, 'bot', false);
-                        }
-                    } else {
-                        // Display the content as text
-                        updateChat(response_obj.content, 'bot', false);
-                    }
->>>>>>> ad2172a1c40946fbf6aa6c8ee7cd760fc7372a45
                 }
 
                 clearInterval(loadingTextInterval);

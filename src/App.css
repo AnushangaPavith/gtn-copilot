@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Manrope';
+  src: url('../font/Manrope-Regular.ttf') format('truetype');
+}
+
 .App{
   height: 100%;
 }
@@ -5,6 +10,7 @@
 body {
   height: 100vh;
   overflow: hidden;
+  font-family: 'Manrope', sans-serif;
 }
 
 .App-header {

@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_BASE_URL = {
     dynamic: "http://127.0.0.1:8000/dynamic-data-retrieve/invoke",
     admin: "http://127.0.0.1:8000/admin-assist/invoke",
-    task: "http://127.0.0.1:8000/task/invoke"
+    task: "http://127.0.0.1:8000/task-automation/invoke"
 }
 
 class Service {

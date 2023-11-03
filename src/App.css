@@ -10,6 +10,9 @@
 body {
   height: 100vh;
   overflow: hidden;
+}
+
+*{
   font-family: 'Manrope', sans-serif;
 }
 

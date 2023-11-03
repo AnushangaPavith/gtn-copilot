@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import gtn_copilot from "../img/B1.png";
 import services from '../services/services';
+import { parse } from '../utils';
 
 
 function Copilot() {
@@ -157,8 +158,16 @@ function Copilot() {
                         });
                         updateChat(tableContent, 'bot', true);
                     }
-                } else {
+                } else if(selectedOption=== "admin"){
                     const response = await services.getResponse( userMessage, selectedOption);
+                    setMessages(prevMessages => {
+                        const updatedMessages = [...prevMessages];
+                        updatedMessages.pop();
+                        return updatedMessages;
+                    });
+                    updateChat(response.data.output.content, 'bot', false);
+                }  else {
+                    const response = await services.getResponse( {input: userMessage}, selectedOption);
                     setMessages(prevMessages => {
                         const updatedMessages = [...prevMessages];
                         updatedMessages.pop();

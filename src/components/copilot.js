@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import gtn_copilot from "../img/B1.png";
 import services from '../services/services';
+import { parse } from '../utils';
 
 
 function Copilot() {
@@ -79,7 +80,7 @@ function Copilot() {
 
                 if (selectedOption=== "dynamic"){
                     const response = await services.getResponse({ user_request: userMessage}, selectedOption);
-                    const response_obj = JSON.parse(response.data.output.output);
+                    const response_obj = parse(response.data.output.output);
                     if (response_obj.type === "text") {
                         // Display the content as text
                         setMessages(prevMessages => {
@@ -118,8 +119,8 @@ function Copilot() {
                         });
                         updateChat(tableContent, 'bot', true);
                     }
-                } else {
-                    const response = await services.getResponse( userMessage, selectedOption);
+                }  else {
+                    const response = await services.getResponse( {input: userMessage}, selectedOption);
                     setMessages(prevMessages => {
                         const updatedMessages = [...prevMessages];
                         updatedMessages.pop();

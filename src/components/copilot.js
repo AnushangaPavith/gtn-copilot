@@ -80,6 +80,7 @@ function Copilot() {
                 if (selectedOption=== "dynamic"){
                     const response = await services.getResponse({ user_request: userMessage}, selectedOption);
                     const response_obj = JSON.parse(response.data.output.output);
+                    // const response_obj = response.data.output.output;
                     if (response_obj.type === "text") {
                         // Display the content as text
                         setMessages(prevMessages => {
@@ -93,42 +94,62 @@ function Copilot() {
                         // Assuming content is an array of objects
                         const tableContent = (
                             <table className="custom-table">
-                                <thead>
-                                    <tr>
-                                        {Object.keys(response_obj.content[0]).map((key) => (
-                                            <th key={key}>{key}</th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {response_obj.content.map((item, index) => (
-                                        <tr key={index}>
-                                            {Object.values(item).map((value, subIndex) => {
-                                                if (typeof value === "object" && !Array.isArray(value)) {
-                                                    // Handle nested objects here
-                                                    return (
-                                                        <td key={subIndex}>
-                                                            <table>
-                                                                <tbody>
-                                                                    {Object.keys(value).map((subKey, subSubIndex) => (
-                                                                        <tr key={subSubIndex}>
-                                                                            <td>{subKey}</td>
-                                                                            <td>{value[subKey]}</td>
-                                                                        </tr>
-                                                                    ))}
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    );
-                                                } else {
-                                                    return <td key={subIndex}>{value}</td>;
-                                                }
-                                            })}
-                                        </tr>
-                                    ))}
-                                </tbody>
+                              <thead>
+                                <tr>
+                                  {Object.keys(response_obj.content[0]).map((key) => (
+                                    <th key={key}>{key}</th>
+                                  ))}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {response_obj.content.map((item, index) => (
+                                  <tr key={index}>
+                                    {Object.values(item).map((value, subIndex) => {
+                                      if (typeof value === "object" && !Array.isArray(value)) {
+                                        // Handle nested objects here
+                                        return (
+                                          <td key={subIndex}>
+                                            <table>
+                                              <tbody>
+                                                {Object.keys(value).map((subKey, subSubIndex) => (
+                                                  <tr key={subSubIndex}>
+                                                    <td>{subKey}</td>
+                                                    <td>{value[subKey]}</td>
+                                                  </tr>
+                                                ))}
+                                              </tbody>
+                                            </table>
+                                          </td>
+                                        );
+                                      } else if (Array.isArray(value)) {
+                                        // Handle arrays of objects
+                                        return (
+                                          <td key={subIndex}>
+                                            <table>
+                                              <tbody>
+                                                {value.map((subItem, subSubIndex) => (
+                                                  <tr key={subSubIndex}>
+                                                    {Object.keys(subItem).map((subKey, subSubSubIndex) => (
+                                                      <td key={subSubSubIndex}>
+                                                        {subKey}: {subItem[subKey]}
+                                                      </td>
+                                                    ))}
+                                                  </tr>
+                                                ))}
+                                              </tbody>
+                                            </table>
+                                          </td>
+                                        );
+                                      } else {
+                                        return <td key={subIndex}>{value}</td>;
+                                      }
+                                    })}
+                                  </tr>
+                                ))}
+                              </tbody>
                             </table>
-                        );                        
+                          );
+                                               
                         setMessages(prevMessages => {
                             const updatedMessages = [...prevMessages];
                             updatedMessages.pop();

@@ -10,7 +10,7 @@ function HomePage() {
   };
 
   return (
-    <div className='homepage'>
+    <div className={'homepage'}>
       <div className='switch'>
         <div className={`toggle-switch ${showRubix ? 'on' : 'off'}`} onClick={toggleSwitch}>
           <div className={`toggle-knob ${showRubix ? 'on' : 'off'}`}></div>
@@ -18,7 +18,7 @@ function HomePage() {
       </div>
 
       {showRubix ? (
-        <RubixCopilot />
+          <RubixCopilot />
       ) : (
         <Copilot />
       )}

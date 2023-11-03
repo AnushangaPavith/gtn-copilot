@@ -79,8 +79,8 @@ function Copilot() {
 
                 if (selectedOption=== "dynamic"){
                     const response = await services.getResponse({ user_request: userMessage}, selectedOption);
-                    const response_obj = JSON.parse(response.data.output.output);
-                    // const response_obj = response.data.output.output;
+                    // const response_obj = JSON.parse(response.data.output.output);
+                    const response_obj = response.data.output.output;
                     if (response_obj.type === "text") {
                         // Display the content as text
                         setMessages(prevMessages => {

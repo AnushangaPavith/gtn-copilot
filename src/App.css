@@ -240,6 +240,10 @@ button {
   max-width: 100% !important;
 }
 
+.message p {
+  margin: 1px;
+}
+
 h2 {
   margin-top: 10px;
   margin-bottom: 0;
@@ -371,7 +375,6 @@ sup {
   display: flex;
   height: 100%;
   justify-content: flex-end;
-  margin-left: auto;
 }
 
 .gtn-copilot-rubix {
@@ -379,12 +382,13 @@ sup {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  width: 450px;
+  width: auto;
   margin: 0 auto;
   border-radius: 8px;
   border: 1px solid #286f71;
   background: linear-gradient(135deg, #fff, #d6feff);
-  margin-left: auto;
+  margin-left: 2px;
+  margin-right: 3px;
   overflow: auto;
 }
 

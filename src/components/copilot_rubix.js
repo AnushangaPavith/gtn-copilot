@@ -15,6 +15,7 @@ function RubixCopilot() {
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     const [listening, setListening] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [orderData, setOrderData] = useState();
 
     useEffect(() => {
         if (recognition) {
@@ -132,9 +133,19 @@ function RubixCopilot() {
                 } else {
                     const response = await services.getResponse(userMessage, selectedOption);
                     // Send response data to popup.js
-                    setIsPopupOpen(true);
-                }
+                    setOrderData(response.data.output.text[0]);
 
+                    setIsPopupOpen(true);
+                    
+                    // Remove loading message
+                    setMessages(prevMessages => {
+                        const updatedMessages = [...prevMessages];
+                        updatedMessages.pop();
+                        return updatedMessages;
+                    });
+                    updateChat("Here your order. Confirm to proceed.", 'bot', false);
+                }
+                
                 clearInterval(loadingTextInterval);
 
             } catch (error) {
@@ -152,10 +163,6 @@ function RubixCopilot() {
 
             setInputField(''); // Clear the input field
             console.log(messages);
-
-
-            // Remove this
-            setIsPopupOpen(true);
         }
     };
 
@@ -225,6 +232,7 @@ function RubixCopilot() {
             {
                 isPopupOpen && (
                     <PopupWindow
+                        details={orderData}
                         isOpen={isPopupOpen}
                         onClose={() => setIsPopupOpen(false)}
                         onConfirm={''}

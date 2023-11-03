@@ -157,6 +157,14 @@ function Copilot() {
                         });
                         updateChat(tableContent, 'bot', true);
                     }
+                } else if(selectedOption=== "admin"){
+                    const response = await services.getResponse( userMessage, selectedOption);
+                    setMessages(prevMessages => {
+                        const updatedMessages = [...prevMessages];
+                        updatedMessages.pop();
+                        return updatedMessages;
+                    });
+                    updateChat(response.data.output.content, 'bot', false);
                 }  else {
                     const response = await services.getResponse( {input: userMessage}, selectedOption);
                     setMessages(prevMessages => {
